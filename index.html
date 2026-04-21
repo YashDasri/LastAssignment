@@ -48,8 +48,8 @@
             <div class="hero__visual" aria-hidden="true">
               <!-- Embedded one-page PDF resume (small preview) -->
               <div class="pdf-preview">
-                <iframe src="./Yash_Dasri_General_Master_Resume.pdf" title="Resume preview" frameborder="0" loading="lazy"></iframe>
-                <div class="pdf-actions"><a href="./Yash_Dasri_General_Master_Resume.pdf" target="_blank" rel="noopener" class="btn btn--ghost">Open resume</a></div>
+                <iframe src="./resume.pdf" title="Resume preview" frameborder="0" loading="lazy"></iframe>
+                <div class="pdf-actions"><a href="./resume.pdf" target="_blank" rel="noopener" class="btn btn--ghost">Open resume</a></div>
               </div>
             </div>
           </div>
@@ -240,6 +240,10 @@
     <div class="chat-header">
       <strong>Assistant</strong>
       <button class="chat-close" aria-label="Close chat" onclick="toggleChat()">✕</button>
+    </div>
+    <!-- Resume PDF preview inside chat frame -->
+    <div class="chat-pdf-wrapper">
+  <iframe id="chat-pdf" src="./resume.pdf" title="Resume" frameborder="0" loading="lazy"></iframe>
     </div>
     <div id="chat-messages" class="chat-messages" aria-live="polite"></div>
     <div class="chat-input-row">
