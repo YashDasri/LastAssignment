@@ -1,0 +1,234 @@
+/*
+  style.css — Refactored for clarity and maintainability
+  - Organized into logical sections
+  - Keep selectors small and component-scoped where possible
+  - Use CSS variables for easy theming
+  - Split into additional files later (components/, layout/, utilities/)
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+/* ==========================
+  Variables (theming)
+  ========================== */
+:root {
+  --bg: #f6f8fa;
+  --panel: #ffffff;
+  --text: #0f172a;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --radius: 10px;
+  --header-height: 72px; /* used to offset fixed header when scrolling */
+  --container-width: 1100px;
+  /* Layout scale */
+  --gap: 2rem;
+  --gap-sm: .75rem;
+  --hero-sidebar-width: 360px;
+  --pdf-width: 320px;
+  --pdf-height: 220px;
+  --tap-target: 44px;
+  /* Typography */
+  --font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+}
+
+
+/* ==========================
+  Reset & Base
+  ========================== */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  font-family: var(--font-family);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: var(--container-width); margin: 0 auto; padding: 0 1rem; }
+
+/* Main page layout using CSS Grid with named areas */
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "hero"
+    "experience"
+    "skills"
+    "certifications"
+    "contact";
+  gap: var(--gap);
+  align-items: start;
+}
+
+/* Map sections (IDs expected in the HTML) to grid areas */
+.section--hero { grid-area: hero; }
+#experience { grid-area: experience; }
+#skills { grid-area: skills; }
+#certifications { grid-area: certifications; }
+#contact { grid-area: contact; }
+
+
+/* ==========================
+  Layout: Header & Nav
+  ========================== */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-height);
+  background: rgba(255,255,255,0.96);
+  box-shadow: 0 1px 0 rgba(15,23,42,0.04);
+  z-index: 1000;
+  backdrop-filter: blur(6px);
+}
+.header__inner { display: flex; align-items: center; justify-content: space-between; height: 100%; padding: 0 1rem; }
+.brand { font-weight: 700; color: var(--text); text-decoration: none; }
+
+/* Nav */
+.site-nav .nav__list { display: flex; gap: 1rem; list-style: none; margin: 0; padding: 0; }
+.nav__link { color: var(--text); text-decoration: none; padding: .35rem .5rem; border-radius: 6px; }
+.nav__link:hover, .nav__link.is-active { background: rgba(37,99,235,0.08); color: var(--primary); }
+.nav-toggle { display: none; border: 0; background: transparent; }
+.nav-toggle__bar { display: block; width: 22px; height: 2px; background: var(--text); margin: 4px 0; }
+
+
+/* ==========================
+  Sections & Page Flow
+  ========================== */
+.section { padding: 3.5rem 0; }
+.section--hero { padding-top: calc(var(--header-height) + 1.5rem); padding-bottom: 4.5rem; }
+
+/* Sections take the remaining viewport under the fixed header — good for section-by-section navigation */
+.section { min-height: calc(100vh - var(--header-height)); display: flex; align-items: center; }
+
+.hero { display: grid; grid-template-columns: 1fr var(--hero-sidebar-width); gap: var(--gap); align-items: center; }
+.hero__title { font-size: 2rem; margin: 0; }
+.hero__subtitle { color: var(--muted); margin-top: .5rem; }
+.hero__actions { margin-top: 1rem; display: flex; gap: .75rem; }
+
+
+/* ==========================
+  Components: Buttons & Cards
+  ========================== */
+.btn { display: inline-block; padding: .6rem .9rem; background: var(--primary); color: #fff; border-radius: 8px; text-decoration: none; }
+.btn--ghost { background: transparent; border: 1px solid rgba(15,23,42,0.06); color: var(--text); }
+
+.card { background: var(--panel); padding: 1rem; border-radius: 12px; box-shadow: 0 6px 18px rgba(15,23,42,0.04); }
+.card + .card { margin-top: .75rem; }
+
+
+/* ==========================
+  PDF preview (hero visual)
+  ========================== */
+.placeholder-visual { background: linear-gradient(135deg,#eaeefb,#f3f6ff); height: 220px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--muted); }
+.pdf-preview { width: 100%; max-width: var(--pdf-width); border-radius: var(--radius); overflow: hidden; background: var(--panel); display:flex; flex-direction: column; }
+.pdf-preview iframe { width: 100%; height: var(--pdf-height); border: 0; display: block; }
+.pdf-actions { padding: .5rem; display: flex; justify-content: center; }
+
+
+/* ==========================
+  Placeholder & Utilities
+  ========================== */
+.section--placeholder { background: transparent; border-top: 1px solid rgba(15,23,42,0.03); }
+.muted { color: var(--muted); }
+.emoji { display: inline-block; margin-left: .25rem; }
+
+
+/* ==========================
+  Forms (Contact)
+  ========================== */
+.contact-form { margin-top: 1rem; }
+.contact-form .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap-sm); }
+.form-row { display: flex; flex-direction: column; }
+.form-row--full { grid-column: 1 / -1; }
+label { font-size: .9rem; margin-bottom: .35rem; }
+input[type="text"], input[type="email"], input[type="tel"], input[type="url"], input[type="number"], select, textarea { padding: .5rem; border: 1px solid rgba(15,23,42,0.06); border-radius: 8px; }
+.form-actions { margin-top: 1rem; display: flex; gap: .5rem; }
+.contact-status { margin-top: .75rem; color: var(--primary); }
+
+
+/* ==========================
+  Section navigation (prev/next)
+  ========================== */
+.section-nav { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border: 1px solid rgba(15,23,42,0.06); width: var(--tap-target); height: var(--tap-target); border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 60; }
+.section-nav--prev { left: 12px; }
+.section-nav--next { right: 12px; }
+.section-nav:hover { box-shadow: 0 6px 18px rgba(15,23,42,0.08); }
+
+
+/* ==========================
+  Footer
+  ========================== */
+.site-footer { padding: 1.5rem 0; color: var(--muted); }
+
+
+/* ==========================
+  Responsive rules
+  ========================== */
+/* Tablet: slightly smaller hero visual and spacing */
+@media (max-width: 1200px) and (min-width: 901px) {
+  :root { --hero-sidebar-width: 280px; --pdf-width: 260px; --gap: 1.25rem; }
+  .hero { grid-template-columns: 1fr var(--hero-sidebar-width); gap: var(--gap); }
+}
+
+/* Mobile: stack/layout adjustments for small screens */
+@media (max-width: 900px) {
+  /* Stack hero columns */
+  .hero { grid-template-columns: 1fr; }
+
+  /* Mobile nav: hidden by default, shown by JS (display toggled) — when visible it should behave like an overlay */
+  .site-nav {
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background: var(--panel);
+    padding: 1rem;
+    box-shadow: 0 10px 30px rgba(15,23,42,0.08);
+    border-top: 1px solid rgba(15,23,42,0.04);
+  }
+  .nav-toggle { display: inline-block; }
+
+  /* Touch-friendly nav links */
+  .site-nav .nav__list { flex-direction: column; gap: .5rem; }
+  .nav__link { display: block; padding: .75rem 1rem; font-size: 1rem; }
+
+  .container { padding: 0 .75rem; }
+  .section-nav { display: none; }
+
+  /* Make hero actions stack and be full-width on mobile */
+  .hero__actions { flex-direction: column; }
+  .hero__actions .btn { width: 100%; }
+
+  /* PDF preview smaller on mobile */
+  :root { --pdf-width: 220px; --pdf-height: 180px; }
+  .pdf-preview { max-width: var(--pdf-width); margin: 0 auto; }
+  .pdf-preview iframe { height: var(--pdf-height); }
+
+  /* Forms: single column and larger controls for touch */
+  .contact-form .form-grid { grid-template-columns: 1fr; }
+  input[type="text"], input[type="email"], textarea, select { font-size: 1rem; }
+  .form-actions { flex-direction: column; }
+  .form-actions .btn { width: 100%; }
+
+  /* Increase tap target size for buttons/links */
+  .nav__link, .btn { min-height: var(--tap-target); display: inline-flex; align-items: center; justify-content: center; }
+}
+
+/* --------------------------
+   Visual polish & interactions
+   -------------------------- */
+.nav__link, .btn { transition: transform .18s ease, background-color .18s ease, color .18s ease; }
+.nav__link:hover { transform: translateY(-2px); }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(37,99,235,0.12); }
+.card { display: flex; flex-direction: column; transition: transform .18s ease, box-shadow .18s ease; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(15,23,42,0.06); }
+
+/* Small utility grid class for maintainers */
+.grid { display: grid; gap: var(--gap-sm); }
+
+
+/* ==========================
+  Notes for maintainers
+  - Split large files into components: /assets/css/components/*.css
+  - Add a variables file for theme overrides
+  - Keep selector specificity low and prefer utility classes
+*/
