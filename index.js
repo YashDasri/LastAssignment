@@ -1,5 +1,5 @@
 
-const API_URL = "https://main.d1js5f43yykzgk.amplifyapp.com/";
+const API_URL = "https://e5n4b59cfi.execute-api.us-east-1.amazonaws.com/default/Yashfunc";
 
 // Toggle chat window open/closed
 function toggleChat() {
