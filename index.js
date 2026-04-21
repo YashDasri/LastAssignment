@@ -1,0 +1,1 @@
+const openapi_key="AIzaSyBPEgT9EWhZjDXVWRMgOZ1Bf9TRL0TpcRw"
