@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Portfolio — Yash Dasri</title>
     <!-- Link to central stylesheet (scalable - add more files under assets/css as needed) -->
-    <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="assets/css/chat-widget.css" />
   </head>
 
   <body>
@@ -229,5 +230,22 @@
 
   <!-- Central script for interactions (mobile nav, smooth scroll, section spy, section nav) -->
   <script src="assets/js/main.js" defer></script>
+  <!-- Chat widget script (local) -->
+  <script src="index.js" defer></script>
+
+  <!-- Chat widget markup -->
+  <button id="chat-toggle" class="chat-toggle" aria-label="Open chat" onclick="toggleChat()">💬</button>
+
+  <div id="chat-frame" class="chat-frame" role="dialog" aria-label="AI chat" aria-hidden="true" style="display:none;">
+    <div class="chat-header">
+      <strong>Assistant</strong>
+      <button class="chat-close" aria-label="Close chat" onclick="toggleChat()">✕</button>
+    </div>
+    <div id="chat-messages" class="chat-messages" aria-live="polite"></div>
+    <div class="chat-input-row">
+      <input id="chat-input" class="chat-input" type="text" placeholder="Ask me something..." aria-label="Type a message" />
+      <button id="chat-send" class="chat-send" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
   </body>
 </html>

@@ -4,10 +4,17 @@ const API_URL = "https://main.d1js5f43yykzgk.amplifyapp.com/";
 // Toggle chat window open/closed
 function toggleChat() {
   const frame = document.getElementById("chat-frame");
-  if (frame.style.display === "none" || frame.style.display === "") {
+  const input = document.getElementById("chat-input");
+  if (!frame) return;
+
+  const isClosed = frame.style.display === "none" || frame.style.display === "";
+  if (isClosed) {
     frame.style.display = "flex";
+    frame.setAttribute('aria-hidden', 'false');
+    if (input) input.focus();
   } else {
     frame.style.display = "none";
+    frame.setAttribute('aria-hidden', 'true');
   }
 }
 
